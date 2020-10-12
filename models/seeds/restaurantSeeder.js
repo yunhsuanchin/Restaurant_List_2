@@ -19,6 +19,5 @@ db.once('open', () => {
   for (const restaurant of restaurants.results) {
     Restaurant.create(restaurant)
   }
-
   console.log('done.')
 })

@@ -9,6 +9,7 @@ app.set('view engine', 'hbs')
 
 // require mongoose and set connection to mongoDB
 const mongoose = require('mongoose')
+const restaurant = require('./models/restaurant')
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
@@ -19,9 +20,28 @@ db.once('open', () => {
   console.log('connected!')
 })
 
+// require Restaurant model
+const Restaurant = require('./models/restaurant')
+
+// set static files
+app.use(express.static('public'))
+
 // set routes
+// routes --> index page
 app.get('/', (req, res) => {
-  res.render('index')
+  Restaurant.find()
+    .lean()
+    .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.log(error))
+})
+
+// routes --> go to show page
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
 })
 
 // listen on
