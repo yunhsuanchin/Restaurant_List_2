@@ -25,12 +25,13 @@ db.once('open', () => {
 
 // require Restaurant model
 const Restaurant = require('./models/restaurant')
+const restaurant = require('./models/restaurant')
 
 // set static files
 app.use(express.static('public'))
 
 // set routes
-// routes --> index page
+// route --> index page
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
@@ -38,16 +39,16 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// routes --> go to show page
-app.get('/restaurants/:id', (req, res) => {
+// route --> go to detail page
+app.get('/restaurant/:id', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
     .lean()
-    .then(restaurant => res.render('show', { restaurant }))
+    .then(restaurant => res.render('detail', { restaurant }))
     .catch(error => console.log(error))
 })
 
-// routes --> search function
+// route --> search function
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase()
   Restaurant.find()
@@ -56,6 +57,24 @@ app.get('/search', (req, res) => {
       const filterRestaurants = restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(keyword))
       res.render('index', { restaurants: filterRestaurants, keyword })
     })
+    .catch(error => console.log(error))
+})
+
+// route --> go to new page
+app.get('/restaurants/new', (req, res) => {
+  res.render('new')
+})
+
+// route --> add a new restaurant to database
+app.post('/restaurants', (req, res) => {
+  const newRestaurant = Object.assign({}, req.body)
+
+  if (newRestaurant.image === '') {
+    newRestaurant.image = 'https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png'
+  }
+
+  Restaurant.create(newRestaurant)
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 

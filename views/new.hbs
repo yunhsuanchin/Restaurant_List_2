@@ -1,0 +1,53 @@
+<div class="container my-5" style="max-width: 50%;">
+  <h1 class="mb-5 text-center" style="margin-top: -70px;">新增餐廳</h1>
+
+  <form action="/restaurants" method="POST">
+    <div class="form-group mb-4">
+      <label for="exampleFormControlInput1" style="color: red;">＊餐廳名稱：<small>（必填）</small></label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="請輸入餐廳名稱" name="name">
+    </div>
+    <div class="form-group mb-4">
+      <label for="exampleFormControlInput1">餐廳英文名稱：</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="請輸入餐廳英文名稱" name="name_en">
+    </div>
+    <div class="form-group mb-4">
+      <label for="exampleFormControlSelect1">餐點類型：</label>
+      <select class="form-control" id="exampleFormControlSelect1" name="category">
+        <option selected value="">-- 請選擇餐點類型 --</option>
+        <option value="中東料理">中東料理</option>
+        <option value="日本料理">日本料理</option>
+        <option value="義式料理">義式料理</option>
+        <option value="美式料理">美式料理</option>
+        <option value="咖啡廳">咖啡廳</option>
+        <option value="酒吧">酒吧</option>
+      </select>
+    </div>
+    <div class="form-group mb-4">
+      <label for="exampleFormControlInput1">餐廳圖片網址：</label>
+      <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="請貼上餐廳圖片網址" name="image">
+    </div>
+    <div class="form-group mb-4">
+      <label for="exampleFormControlInput1">地址：</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="請輸入餐廳地址" name="location">
+    </div>
+    <div class="form-group mb-4">
+      <label for="exampleFormControlInput1">電話：</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="請輸入餐廳電話" name="phone">
+    </div>
+    <div class="form-group mb-4">
+      <label for="exampleFormControlInput1">google地圖：</label>
+      <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="請貼上google地圖網址"
+        name="google_map">
+    </div>
+    <div class="form-group mb-4">
+      <label for="exampleFormControlInput1">餐廳評分：<small>（1 ~ 5分）</small></label>
+      <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="請輸入餐廳評分" min="1" max="5"
+        name="rating">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">餐廳描述：</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-dark">Save</button>
+  </form>
+</div>
