@@ -7,11 +7,14 @@ const exphbs = require('express-handlebars')
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
+// require body parser
+const bodyParse = require('body-parser')
+app.use(bodyParse.urlencoded({ extended: true }))
+
 // require mongoose and set connection to mongoDB
 const mongoose = require('mongoose')
-const restaurant = require('./models/restaurant')
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
-
+// get mongoDB connection status
 const db = mongoose.connection
 db.on('error', () => {
   console.log('connection error.')
@@ -41,6 +44,18 @@ app.get('/restaurants/:id', (req, res) => {
   Restaurant.findById(id)
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+// routes --> search function
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword.toLowerCase()
+  Restaurant.find()
+    .lean()
+    .then((restaurants) => {
+      const filterRestaurants = restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(keyword))
+      res.render('index', { restaurants: filterRestaurants, keyword })
+    })
     .catch(error => console.log(error))
 })
 
