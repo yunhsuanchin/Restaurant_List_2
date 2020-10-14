@@ -79,8 +79,26 @@ app.post('/restaurants', (req, res) => {
 })
 
 // route --> go to edit page
+app.get('/restaurant/:id/edit', (req, res) => {
+  const id = req.params.id
+  Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
 
-// route --> edit restaurant detail
+// route --> edit restaurant
+app.post('/restaurant/:id/edit', (req, res) => {
+  const id = req.params.id
+  console.log('body', req.body)
+  return Restaurant.findById(id)
+    .then(restaurant => {
+      restaurant = Object.assign(restaurant, req.body)
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurant/${id}`))
+    .catch(error => console.log(error))
+})
 
 // route --> delete a restaurant
 app.post('/restaurant/:id/delete', (req, res) => {
