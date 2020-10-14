@@ -66,6 +66,15 @@ header {
   white-space: nowrap;
 }
 
+.card .buttons a,
+.card .buttons button {
+  border-radius: 10rem;
+  font-size: 75%;
+  padding: 0.25em 0.4em;
+  border: none;
+  line-height: 1;
+}
+
 .restaurant-category {
   color: #666666;
   font-size: 0.8rem;

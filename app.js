@@ -78,6 +78,19 @@ app.post('/restaurants', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// route --> go to edit page
+
+// route --> edit restaurant detail
+
+// route --> delete a restaurant
+app.post('/restaurant/:id/delete', (req, res) => {
+  const id = req.params.id
+  Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // listen on
 app.listen(3000, () => {
   console.log('App is running on http://localhost/3000')
