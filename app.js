@@ -15,7 +15,7 @@ app.use(bodyParse.urlencoded({ extended: true }))
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
-// require mongoose and set connection to mongoDB
+// require mongoose
 require('./config/mongoose')
 
 // set static files

@@ -1,10 +1,12 @@
-<div class="container my-5" style="max-width: 50%;">
-  <h1 class="mb-5 text-center" style="margin-top: -70px;">新增餐廳</h1>
+<div class="container" style="max-width: 50%;">
+  <h1 class="mb-5 text-center"
+    style="position: relative; top: -100px; color: white; text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); font-size: 3rem;">
+    新增餐廳</h1>
 
   <form action="/restaurants" method="POST">
     <div class="form-group mb-4">
       <label for="exampleFormControlInput1" style="color: red;">＊餐廳名稱：<small>（必填）</small></label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="請輸入餐廳名稱" name="name">
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="請輸入餐廳名稱" name="name" required>
     </div>
     <div class="form-group mb-4">
       <label for="exampleFormControlInput1">餐廳英文名稱：</label>
@@ -40,9 +42,9 @@
         name="google_map">
     </div>
     <div class="form-group mb-4">
-      <label for="exampleFormControlInput1">餐廳評分：<small>（1 ~ 5分）</small></label>
+      <label for="exampleFormControlInput1">餐廳評分：<small>（0.0 ~ 5.0分）</small></label>
       <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="請輸入餐廳評分" min="1" max="5"
-        name="rating">
+        step="0.1" name="rating">
     </div>
     <div class="form-group">
       <label for="exampleFormControlTextarea1">餐廳描述：</label>
