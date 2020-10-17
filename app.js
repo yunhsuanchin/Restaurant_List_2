@@ -11,6 +11,10 @@ app.set('view engine', 'hbs')
 const bodyParse = require('body-parser')
 app.use(bodyParse.urlencoded({ extended: true }))
 
+// require method-override
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
+
 // require mongoose and set connection to mongoDB
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,7 +29,6 @@ db.once('open', () => {
 
 // require Restaurant model
 const Restaurant = require('./models/restaurant')
-const restaurant = require('./models/restaurant')
 
 // set static files
 app.use(express.static('public'))
@@ -88,7 +91,7 @@ app.get('/restaurant/:id/edit', (req, res) => {
 })
 
 // route --> edit restaurant
-app.post('/restaurant/:id/edit', (req, res) => {
+app.put('/restaurant/:id', (req, res) => {
   const id = req.params.id
   console.log('body', req.body)
   return Restaurant.findById(id)
@@ -101,7 +104,7 @@ app.post('/restaurant/:id/edit', (req, res) => {
 })
 
 // route --> delete a restaurant
-app.post('/restaurant/:id/delete', (req, res) => {
+app.delete('/restaurant/:id', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
