@@ -18,43 +18,39 @@
 
 <!-- restaurant list -->
 <div class="container mt-5">
-  <div class="row">
-    <div class="col-md-10 col-12 mx-auto">
-      <div class="card-columns">
+  <div class="row row-cols-1 row-cols-md-3">
 
-        {{#each restaurants}}
-        <div class="card mb-3">
-          <a href="./restaurants/{{ this._id }}" class="text-secondary">
-            <img class="card-img-top" src="{{ this.image }}" alt="{{ this.name }}">
-          </a>
+    {{#each restaurants}}
+    <div class="col">
+      <div class="card mb-3">
+        <a href="./restaurants/{{ this._id }}" class="text-secondary">
+          <img class="card-img-top" src="{{ this.image }}" alt="{{ this.name }}">
+
           <div class="card-body p-3">
-            <a href="./restaurant/{{ this._id }}" class="text-secondary">
-              <h6 class="card-title mb-1">{{ this.name }}</h6>
-            </a>
-            <div class="restaurant-category mb-1">
-              <i class="fas fa-utensils pr-2"></i> {{ this.category }}
-            </div>
-            <span class="badge badge-pill badge-danger font-weight-normal">
-              {{ this.rating }}
-              <i class="fas fa-star fa-xs"></i>
-            </span>
-            <div class="buttons text-right">
-              <a href="/restaurants/{{ this._id }}/edit" class="badge badge-pill badge-warning font-weight-normal">
-                Edit
-                <i class="fas fa-pencil-alt"></i>
-              </a>
-              <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-                <button class="btn btn-warning font-weight-normal" type="submit">
-                  Delete
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </form>
-            </div>
-          </div>
+            <h6 class="card-title mb-1">{{ this.name }}</h6>
+        </a>
+        <div class="restaurant-category mb-1">
+          <i class="fas fa-utensils pr-2"></i> {{ this.category }}
         </div>
-        {{/each}}
-
+        <span class="badge badge-pill badge-danger font-weight-normal">
+          {{ this.rating }}
+          <i class="fas fa-star fa-xs"></i>
+        </span>
+        <div class="buttons text-right">
+          <a href="/restaurants/{{ this._id }}/edit" class="badge badge-pill badge-warning font-weight-normal">
+            Edit
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+          <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+            <button class="btn btn-warning font-weight-normal" type="submit">
+              Delete
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+  {{/each}}
+</div>
 </div>
