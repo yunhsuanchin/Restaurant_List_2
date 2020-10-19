@@ -3,7 +3,6 @@
     rgba(0, 0, 0, 0.5); font-size: 3rem; line-height: 1.5;">修改餐廳資訊 --<br> {{ restaurant.name }}</h1>
 
   <form action="/restaurants/{{ restaurant._id }}?_method=PUT" method="POST">
-
     <div class="form-group mb-4">
       <label for="name_en">餐廳英文名稱：</label>
       <input type="text" class="form-control" placeholder="請輸入餐廳英文名稱" name="name_en" value="{{ restaurant.name_en }}"
@@ -12,13 +11,13 @@
     <div class="form-group mb-4">
       <label for="category">餐點類型：</label>
       <select class="form-control" name="category" id="category">
-        <option selected value="">-- 請選擇餐點類型 --</option>
-        <option value="中東料理">中東料理</option>
-        <option value="日本料理">日本料理</option>
-        <option value="義式料理">義式料理</option>
-        <option value="美式料理">美式料理</option>
-        <option value="咖啡廳">咖啡廳</option>
-        <option value="酒吧">酒吧</option>
+        <option value="" selected disabled>-- 修改餐點類型 --</option>
+        <option value="中東料理" {{#if_equal category '中東料理'}}selected{{/if_equal}}>中東料理</option>
+        <option value="日本料理" {{#if_equal category '日本料理'}}selected{{/if_equal}}>日本料理</option>
+        <option value="義式料理" {{#if_equal category '義式餐廳'}}selected{{/if_equal}}>義式料理</option>
+        <option value="美式料理" {{#if_equal category '美式'}}selected{{/if_equal}}>美式料理</option>
+        <option value="咖啡廳" {{#if_equal category '咖啡'}}selected{{/if_equal}}>咖啡廳</option>
+        <option value="酒吧" {{#if_equal category '酒吧'}}selected{{/if_equal}}>酒吧</option>
       </select>
     </div>
     <div class="form-group mb-4">

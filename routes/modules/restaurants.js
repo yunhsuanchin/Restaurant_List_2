@@ -49,7 +49,10 @@ router.get('/:id/edit', (req, res) => {
   const id = req.params.id
   Restaurant.findById(id)
     .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
+    .then(restaurant => {
+      const category = restaurant.category
+      res.render('edit', { restaurant, category })
+    })
     .catch(error => console.log(error))
 })
 
