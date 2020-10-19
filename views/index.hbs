@@ -27,6 +27,8 @@
         <a class="dropdown-item" href="./name-desc">依餐廳名稱 <i class="fas fa-arrow-up"></i></a>
         <a class="dropdown-item" href="./id-asc">依加入時間 <i class="fas fa-arrow-down"></i></a>
         <a class="dropdown-item" href="./id-desc">依加入時間 <i class="fas fa-arrow-up"></i></a>
+        <a class="dropdown-item" href="./category">依餐廳類別 <i class="fas fa-arrow-down"></i></a>
+        <a class="dropdown-item" href="./location">依地區 <i class="fas fa-arrow-down"></i></a>
       </div>
     </div>
   </div>
@@ -59,7 +61,8 @@
             Edit
             <i class="fas fa-pencil-alt"></i>
           </a>
-          <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+          <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;"
+            onsubmit="return confirm('確定要刪除『{{ this.name }}』嗎？')">
             <button class="btn btn-warning font-weight-normal" type="submit">
               Delete
               <i class="fas fa-trash-alt"></i>

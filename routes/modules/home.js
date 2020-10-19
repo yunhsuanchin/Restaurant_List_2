@@ -50,4 +50,15 @@ router.get('/id-desc', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// sort --> category
+router.get('/category', (req, res) => {
+  Restaurant.find()
+    .lean()
+    .sort('-_id')
+    .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.log(error))
+})
+
+
+
 module.exports = router
