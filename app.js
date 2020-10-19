@@ -6,7 +6,14 @@ const app = express()
 const exphbs = require('express-handlebars')
 app.engine('hbs', exphbs({
   defaultLayout: 'main',
-  extname: '.hbs'
+  extname: '.hbs',
+  helpers: {
+    if_equal: function (a, b, options) {
+      if (a === b) {
+        return options.fn(this)
+      }
+    }
+  }
 }))
 app.set('view engine', 'hbs')
 

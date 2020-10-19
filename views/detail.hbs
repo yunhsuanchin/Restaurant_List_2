@@ -40,7 +40,8 @@
           Edit
           <i class="fas fa-pencil-alt"></i>
         </a>
-        <form action="/restaurants/{{ restaurant._id }}?_method=DELETE" method="POST" style="display: inline;">
+        <form action="/restaurants/{{ restaurant._id }}?_method=DELETE" method="POST" style="display: inline;"
+          onsubmit="return confirm('確定要刪除『{{ restaurant.name }}』嗎？')">
           <button class="btn btn-warning font-weight-normal mb-5" type="submit" style="border-radius: 10rem;">
             Delete
             <i class="fas fa-trash-alt"></i>
