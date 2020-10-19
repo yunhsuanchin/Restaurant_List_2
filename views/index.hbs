@@ -14,7 +14,25 @@
       </form>
     </div>
   </div>
+
+  {{!-- Dropdown box --}}
+  <div class="text-right">
+    <div class="dropdown mt-5">
+      <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        排序選項
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="./name-asc">依餐廳名稱 <i class="fas fa-arrow-down"></i></a>
+        <a class="dropdown-item" href="./name-desc">依餐廳名稱 <i class="fas fa-arrow-up"></i></a>
+        <a class="dropdown-item" href="./id-asc">依加入時間 <i class="fas fa-arrow-down"></i></a>
+        <a class="dropdown-item" href="./id-desc">依加入時間 <i class="fas fa-arrow-up"></i></a>
+      </div>
+    </div>
+  </div>
+
 </div>
+
 
 <!-- restaurant list -->
 <div class="container mt-5">
