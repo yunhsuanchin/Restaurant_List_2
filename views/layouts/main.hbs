@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/stylesheets/show.css">
 </head>
 
-<body>
+<body style="position: relative; min-height: 100%; padding-bottom: 180px;">
   <header>
     <!-- navigation -->
     <nav class="navbar navbar-light bg-light fixed-top">
@@ -38,7 +38,7 @@
 
   {{!-- partial templates --}}
   {{{ body }}}
-  <footer class="footer bg-dark mt-5" style="height: 60px;">
+  <footer class="footer bg-dark mt-5 sticky-bottom" style="height: 60px; width: 100%; position: absolute; bottom: 0;">
     <div class="container">
       <span class="text-muted" style="line-height: 60px;">Restaurant List</span>
     </div>

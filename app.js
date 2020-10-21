@@ -8,9 +8,9 @@ app.engine('hbs', exphbs({
   defaultLayout: 'main',
   extname: '.hbs',
   helpers: {
-    if_equal: function (a, b, options) {
-      if (a === b) {
-        return options.fn(this)
+    if_equal: function (oldValue, newValue, option) {
+      if (oldValue === newValue) {
+        return option.fn(this)
       }
     }
   }
