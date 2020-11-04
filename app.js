@@ -5,6 +5,7 @@ const bodyParse = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes')
 const session = require('express-session')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 app.engine('hbs', exphbs({
@@ -22,12 +23,13 @@ app.set('view engine', 'hbs')
 app.use(bodyParse.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
-app.use(routes)
 app.use(session({
   secret: 'ThisIsMySecret',
   resave: false,
   saveUninitialized: true
 }))
+usePassport(app)
+app.use(routes)
 
 app.listen(3000, () => {
   console.log('App is running on http://localhost/3000')
