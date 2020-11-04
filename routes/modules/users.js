@@ -14,6 +14,12 @@ router.post('/login', passport.authenticate('local', {
   successRedirect: '/'
 }))
 
+// route --> logout request
+router.get('/logout', (req, res) => {
+  req.logOut()
+  res.redirect('/users/login')
+})
+
 // route --> go to register page
 router.get('/register', (req, res) => {
   res.render('register')
