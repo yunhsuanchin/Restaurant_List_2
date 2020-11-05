@@ -19,14 +19,13 @@ module.exports = app => {
         if (!user) {
           return done(null, false, req.flash('error_msg', 'This email does not exists.'))
         }
-
         return bcrypt.compare(password, user.password)
           .then(isMatch => {
             if (!isMatch) {
               return done(null, false, req.flash('error_msg', 'The email or password is incorrect.'))
             }
 
-            return done(null, user, req.flash('success_msg', 'Welcome!'))
+            return done(null, user, req.flash('success_msg', `${user.name}, Welcome!`))
           })
       })
       .catch(err => done(err, false))
@@ -44,7 +43,7 @@ module.exports = app => {
     User.findOne({ email })
       .then(user => {
         if (user) {
-          return done(null, user, req.flash('success_msg', 'Welcome!'))
+          return done(null, user, req.flash('success_msg', `${user.name}, Welcome!`))
         }
 
         const randomPassword = Math.random().toString(36).slice(-8)
@@ -55,7 +54,7 @@ module.exports = app => {
             email,
             password: hash
           }))
-          .then(user => done(null, user, req.flash('success_msg', 'Welcome!')))
+          .then(user => done(null, user, req.flash('success_msg', `${user.name}, Welcome!`)))
           .catch(err => done(err, false))
       })
   }))

@@ -9,6 +9,15 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
+// login check middleware
+router.post('/login', (req, res, next) => {
+  const { email, password } = req.body
+  if (!email || !password) {
+    return res.render('login', { error_msg: 'All fields below are required.' })
+  }
+  next()
+})
+
 // route --> login request
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
