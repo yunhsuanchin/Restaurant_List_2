@@ -1,14 +1,13 @@
-// require express & express.router
 const express = require('express')
 const router = express.Router()
 
-// require Restaurant model
 const Restaurant = require('../../models/restaurant')
 
 // route --> search function
 router.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase()
-  Restaurant.find()
+  const userId = req.user._id
+  Restaurant.find({ userId })
     .lean()
     .then((restaurants) => {
       const filterRestaurants = restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(keyword))
@@ -17,10 +16,12 @@ router.get('/search', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// route --> go to detail page
+// route --> go to a restaurant's detail page
 router.get('/:id', (req, res) => {
-  const id = req.params.id
-  Restaurant.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+
+  Restaurant.findOne({ userId, _id })
     .lean()
     .then(restaurant => res.render('detail', { restaurant }))
     .catch(error => console.log(error))
@@ -34,6 +35,7 @@ router.get('/', (req, res) => {
 // route --> add a new restaurant to database
 router.post('/', (req, res) => {
   const newRestaurant = Object.assign({}, req.body)
+  newRestaurant.userId = req.user._id
 
   if (newRestaurant.image === '') {
     newRestaurant.image = 'https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png'
@@ -46,8 +48,9 @@ router.post('/', (req, res) => {
 
 // route --> go to edit page
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  Restaurant.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  Restaurant.findOne({ userId, _id })
     .lean()
     .then(restaurant => {
       const category = restaurant.category
@@ -58,21 +61,22 @@ router.get('/:id/edit', (req, res) => {
 
 // route --> edit restaurant
 router.put('/:id', (req, res) => {
-  const id = req.params.id
-  // console.log('body', req.body)
-  return Restaurant.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  Restaurant.findOne({ userId, _id })
     .then(restaurant => {
       restaurant = Object.assign(restaurant, req.body)
       return restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${id}`))
+    .then(() => res.redirect(`/restaurants/${_id}`))
     .catch(error => console.log(error))
 })
 
 // route --> delete a restaurant
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  Restaurant.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  Restaurant.findOne({ userId, _id })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))

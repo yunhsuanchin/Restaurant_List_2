@@ -1,6 +1,10 @@
 // require mongoose and set connection to mongoDB
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/restaurant-list', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+})
 
 // get mongoDB connection status
 const db = mongoose.connection
