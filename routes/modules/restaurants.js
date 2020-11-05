@@ -11,6 +11,12 @@ router.get('/search', (req, res) => {
     .lean()
     .then((restaurants) => {
       const filterRestaurants = restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(keyword))
+
+      if (!filterRestaurants.length) {
+        req.flash('warning_msg', `Sorry, there is nothing that matches "${keyword}".`)
+        return res.redirect('/')
+      }
+
       res.render('index', { restaurants: filterRestaurants, keyword })
     })
     .catch(error => console.log(error))
@@ -42,7 +48,10 @@ router.post('/', (req, res) => {
   }
 
   Restaurant.create(newRestaurant)
-    .then(() => res.redirect('/'))
+    .then(() => {
+      req.flash('success_msg', 'Successfully added a new restaurant to your favorite!')
+      return res.redirect('/')
+    })
     .catch(error => console.log(error))
 })
 
@@ -68,7 +77,10 @@ router.put('/:id', (req, res) => {
       restaurant = Object.assign(restaurant, req.body)
       return restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${_id}`))
+    .then(restaurant => {
+      req.flash('success_msg', `Successfully edited details of "${restaurant.name}".`)
+      return res.redirect(`/restaurants/${_id}`)
+    })
     .catch(error => console.log(error))
 })
 
@@ -78,7 +90,10 @@ router.delete('/:id', (req, res) => {
   const userId = req.user._id
   Restaurant.findOne({ userId, _id })
     .then(restaurant => restaurant.remove())
-    .then(() => res.redirect('/'))
+    .then(restaurant => {
+      req.flash('success_msg', `Successfully delete "${restaurant.name}"`)
+      return res.redirect('/')
+    })
     .catch(error => console.log(error))
 })
 
