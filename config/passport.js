@@ -7,19 +7,20 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  // Strategies
+  // Local Strategies
   passport.use(new LocalStrategy({
-    usernameField: 'email'
-  }, (email, password, done) => {
+    usernameField: 'email',
+    passReqToCallback: true
+  }, (req, email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if (!user) {
-          return done(null, false, { message: 'This email does not exists.' })
+          return done(null, false, req.flash('error_msg', 'This email does not exists.'))
         }
         if (password !== user.password) {
-          return done(null, false, { message: 'The email or password is incorrect.' })
+          return done(null, false, req.flash('error_msg', 'The email or password is incorrect.'))
         }
-        return done(null, user)
+        return done(null, user, req.flash('success_msg', 'Welcome!'))
       })
       .catch(err => done(err, false))
   }))

@@ -4,24 +4,27 @@
       style="color: white; text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); font-size: 3rem; margin-top: -100px;">
       Register</h1>
     <div class="card card-body">
+      {{> message}}
       <form action="/users/register" method="POST">
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Please Enter Your Name">
+          <input type="text" class="form-control" id="name" name="name" placeholder="Please Enter Your Name"
+            value="{{ name }}">
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Please Enter Your Email">
+          <input type="email" class="form-control" id="email" name="email" placeholder="Please Enter Your Email"
+            value="{{ email }}">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" name="password"
-            placeholder="Please Enter Your Password">
+            placeholder="Please Enter Your Password" value="{{ password }}">
         </div>
         <div class="form-group">
           <label for="confirmPassword">Confirm Password</label>
           <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-            placeholder="Please Enter Your Password Again">
+            placeholder="Please Enter Your Password Again" value="{{ confirmPassword }}">
         </div>
         <button type="submit" class="btn btn-outline-info btn-block">Register</button>
         <p class="mt-4">Already Have An Account? <a href="/users/login" class="ml-1">Login</a></p>
