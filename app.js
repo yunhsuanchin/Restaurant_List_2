@@ -1,5 +1,10 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const express = require('express')
 const app = express()
+const PORT = process.env.PORT
 const exphbs = require('express-handlebars')
 const bodyParse = require('body-parser')
 const methodOverride = require('method-override')
@@ -26,7 +31,7 @@ app.use(methodOverride('_method'))
 app.use(express.static('public'))
 app.use(flash())
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -41,6 +46,6 @@ app.use((req, res, next) => {
 })
 app.use(routes)
 
-app.listen(3000, () => {
-  console.log('App is running on http://localhost/3000')
+app.listen(PORT, () => {
+  console.log(`App is running on http://localhost/${PORT}`)
 })
