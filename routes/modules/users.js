@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../../models/user')
 const passport = require('passport')
+const bcrypt = require('bcryptjs')
 
 // route --> go to login page
 router.get('/login', (req, res) => {
@@ -52,17 +53,9 @@ router.post('/register', (req, res, next) => {
   User.findOne({ email })
     .then(user => {
       if (user) {
-        req.flash('error_msg', 'This email is already exists.')
+        errors.push({ message: 'This email is already exists.' })
         return res.render('register', {
-          name,
-          email,
-          password,
-          confirmPassword
-        })
-      }
-      if (password !== confirmPassword) {
-        req.flash('error_msg', 'Password does not match.')
-        return res.render('register', {
+          errors,
           name,
           email,
           password,
@@ -70,14 +63,16 @@ router.post('/register', (req, res, next) => {
         })
       }
 
-      return User.create({
-        name,
-        email,
-        password
-      })
+      bcrypt.genSalt(10)
+        .then(salt => bcrypt.hash(password, salt))
+        .then(hash => User.create({
+          name,
+          email,
+          password: hash
+        }))
         .then(() => next())
+        .catch(err => console.error(err))
     })
-    .catch(err => console.error(err))
 }, passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/users/register',
