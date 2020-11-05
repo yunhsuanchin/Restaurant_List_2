@@ -19,14 +19,14 @@ module.exports = app => {
           return done(null, false, req.flash('error_msg', 'This email does not exists.'))
         }
 
-        bcrypt.compare(password, user.password)
+        return bcrypt.compare(password, user.password)
           .then(isMatch => {
             if (!isMatch) {
               return done(null, false, req.flash('error_msg', 'The email or password is incorrect.'))
             }
-          })
 
-        return done(null, user, req.flash('success_msg', 'Welcome!'))
+            return done(null, user, req.flash('success_msg', 'Welcome!'))
+          })
       })
       .catch(err => done(err, false))
   }))
